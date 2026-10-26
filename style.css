@@ -1,4 +1,9 @@
+```css
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* =========================================
+   FAQZY ESPORTS — GOLD EDITION
+   ========================================= */
 
 :root {
   --background: #050505;
@@ -23,7 +28,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 30px;
+  scroll-padding-top: 100px;
 }
 
 body {
@@ -32,6 +37,7 @@ body {
   color: var(--text);
   font-family: Inter, sans-serif;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -42,22 +48,42 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color .2s ease, background .2s ease,
-              border-color .2s ease, transform .2s ease;
+
+  transition:
+    color .25s ease,
+    background .25s ease,
+    border-color .25s ease,
+    transform .25s ease;
 }
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* =========================================
+   NAVIGATION
+   ========================================= */
 
 .navbar {
   padding: 18px 7%;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 24px;
 
-  background: rgba(5, 5, 5, .94);
+  background: rgba(5, 5, 5, .92);
   border-bottom: 1px solid var(--border);
 
-  position: relative;
-  z-index: 10;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .brand {
@@ -73,8 +99,25 @@ a {
 .brand-logo {
   width: 48px;
   height: 48px;
+
   object-fit: contain;
   display: block;
+
+  filter: drop-shadow(
+    0 0 8px rgba(233, 189, 82, .15)
+  );
+
+  transition:
+    transform .35s ease,
+    filter .35s ease;
+}
+
+.brand:hover .brand-logo {
+  transform: rotate(-5deg) scale(1.08);
+
+  filter: drop-shadow(
+    0 0 15px rgba(233, 189, 82, .55)
+  );
 }
 
 .brand-name {
@@ -96,15 +139,38 @@ nav {
   font-weight: 700;
 }
 
-nav a:hover,
-.card a:hover {
+nav a:not(.nav-button) {
+  position: relative;
+}
+
+nav a:not(.nav-button)::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  bottom: -5px;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--gold);
+
+  transition: width .3s ease;
+}
+
+nav a:not(.nav-button):hover {
   color: var(--gold-light);
+}
+
+nav a:not(.nav-button):hover::after {
+  width: 100%;
 }
 
 .nav-button {
   padding: 11px 16px;
+
   background: linear-gradient(
-    135deg,
+    120deg,
     var(--gold-light),
     var(--gold),
     var(--gold-dark)
@@ -121,11 +187,17 @@ nav a:hover,
   transform: translateY(-2px);
 }
 
+/* =========================================
+   HERO SECTION
+   ========================================= */
+
 .hero {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
 
   padding: 100px 7%;
+
   display: grid;
   grid-template-columns: 1.2fr .8fr;
   align-items: center;
@@ -145,9 +217,35 @@ nav a:hover,
     var(--background);
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+
+  width: 420px;
+  height: 420px;
+
+  top: 5%;
+  left: -180px;
+
+  background: radial-gradient(
+    circle,
+    rgba(233, 189, 82, .13),
+    rgba(233, 189, 82, .04) 40%,
+    transparent 70%
+  );
+
+  border-radius: 50%;
+  pointer-events: none;
+
+  animation: goldPulse 7s ease-in-out infinite alternate;
+}
+
 .hero::after {
   content: "";
   position: absolute;
+  z-index: -1;
+
   right: -150px;
   top: -220px;
 
@@ -158,13 +256,39 @@ nav a:hover,
   border-radius: 50%;
 
   pointer-events: none;
+
+  animation: orbitGlow 18s linear infinite;
+}
+
+@keyframes goldPulse {
+  from {
+    transform: translate(0, 0) scale(.9);
+    opacity: .55;
+  }
+
+  to {
+    transform: translate(90px, 50px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes orbitGlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .eyebrow {
   color: var(--gold);
+
   font-size: 10px;
   font-weight: 800;
   letter-spacing: .2em;
+
   text-transform: uppercase;
 }
 
@@ -187,8 +311,39 @@ h2 span {
   color: var(--gold);
 }
 
+.hero h1 span,
+.section h2 span,
+.intro h2 span,
+.league h2 span {
+  background: linear-gradient(
+    115deg,
+    #a87517 0%,
+    #e9bd52 35%,
+    #fff0b5 50%,
+    #e9bd52 70%,
+    #a87517 100%
+  );
+
+  background-size: 200% auto;
+
+  color: var(--gold);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: goldShimmer 6s linear infinite;
+}
+
+@keyframes goldShimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
 .description {
   max-width: 590px;
+
   color: var(--muted);
   font-size: 14px;
   line-height: 1.9;
@@ -198,10 +353,24 @@ h2 span {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+
   margin: 28px 0 12px;
 }
 
+.small {
+  color: #817b70;
+  font-size: 11px;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
 .button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -210,19 +379,52 @@ h2 span {
   padding: 14px 20px;
 
   border: 1px solid var(--border);
+  border-radius: 3px;
+
   background: #111;
   color: var(--text);
 
-  border-radius: 3px;
   font: 800 12px Inter, sans-serif;
 
   cursor: pointer;
-  transition: .2s ease;
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease,
+    background .25s ease;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+
+  top: -50%;
+  left: -120%;
+
+  width: 65%;
+  height: 200%;
+
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, .35),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+
+  transition: left .65s ease;
+}
+
+.button:hover::before {
+  left: 150%;
 }
 
 .button:hover {
+  transform: translateY(-3px);
   border-color: var(--gold);
-  transform: translateY(-2px);
 }
 
 .primary {
@@ -240,31 +442,58 @@ h2 span {
 .primary:hover {
   background: var(--gold-light);
   color: #000;
-  box-shadow: 0 5px 25px rgba(233, 189, 82, .17);
+
+  box-shadow:
+    0 7px 24px rgba(233, 189, 82, .2),
+    0 0 12px rgba(233, 189, 82, .08);
 }
 
-.small {
-  color: #817b70;
-  font-size: 11px;
+.button:active {
+  transform: translateY(-1px) scale(.98);
 }
+
+.button:disabled {
+  opacity: .6;
+  cursor: wait;
+  transform: none;
+}
+
+/* =========================================
+   HERO RECRUITMENT CARD
+   ========================================= */
 
 .hero-card {
   position: relative;
+
   padding: 34px;
 
-  background:
-    linear-gradient(145deg, #191713, #0d0d0d 75%);
+  background: linear-gradient(
+    145deg,
+    #191713,
+    #0d0d0d 75%
+  );
 
   border: 1px solid rgba(233, 189, 82, .3);
+
   box-shadow: 0 20px 70px rgba(0, 0, 0, .3);
+
+  animation:
+    heroEntrance .9s ease-out .15s both,
+    cardFloat 6s ease-in-out 1.2s infinite;
+
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease;
 }
 
 .hero-card::before {
   content: "";
   position: absolute;
+
   top: -1px;
   left: 25px;
   right: 25px;
+
   height: 2px;
 
   background: linear-gradient(
@@ -273,6 +502,14 @@ h2 span {
     var(--gold),
     transparent
   );
+}
+
+.hero-card:hover {
+  border-color: rgba(233, 189, 82, .65);
+
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, .35),
+    0 0 30px rgba(233, 189, 82, .07);
 }
 
 .hero-card h2 {
@@ -286,7 +523,9 @@ h2 span {
 
 .hero-card p:not(.eyebrow) {
   padding: 10px 0;
+
   border-bottom: 1px solid rgba(255, 255, 255, .07);
+
   font-size: 13px;
 }
 
@@ -296,12 +535,39 @@ h2 span {
   font-weight: 800;
 }
 
+@keyframes heroEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* =========================================
+   GENERAL SECTIONS
+   ========================================= */
+
 .section {
   padding: 85px 7%;
 }
 
 #tryouts {
   background: var(--background-alt);
+
   border-top: 1px solid rgba(255, 255, 255, .035);
   border-bottom: 1px solid rgba(255, 255, 255, .035);
 }
@@ -311,52 +577,115 @@ h2 span {
   font-size: clamp(40px, 5vw, 62px);
 }
 
+/* =========================================
+   TRYOUT CARDS
+   ========================================= */
+
 .cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
 }
 
-.card,
-.form {
-  padding: 32px;
-  background: linear-gradient(145deg, #151515, #0d0d0d);
-
-  border: 1px solid rgba(255, 255, 255, .09);
-  min-width: 0;
-}
-
 .card {
   position: relative;
-  transition: border-color .25s ease, transform .25s ease;
+  overflow: hidden;
+
+  padding: 32px;
+
+  background: linear-gradient(
+    145deg,
+    #151515,
+    #0d0d0d
+  );
+
+  border: 1px solid rgba(255, 255, 255, .09);
+
+  min-width: 0;
+
+  transition:
+    transform .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease,
+    background .35s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    var(--gold-light),
+    transparent
+  );
+
+  transform: scaleX(0);
+  transform-origin: left;
+
+  transition: transform .4s ease;
+}
+
+.card:hover::before {
+  transform: scaleX(1);
 }
 
 .card:hover {
-  border-color: rgba(233, 189, 82, .45);
-  transform: translateY(-4px);
+  transform: translateY(-8px);
+
+  border-color: rgba(233, 189, 82, .6);
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, .3),
+    0 0 24px rgba(233, 189, 82, .05);
 }
 
 .card h3 {
   font-size: 36px;
   margin: 14px 0;
+
+  transition:
+    color .3s ease,
+    letter-spacing .3s ease;
+}
+
+.card:hover h3 {
+  letter-spacing: .5px;
 }
 
 .card p:not(.eyebrow) {
   color: var(--muted);
+
   font-size: 13px;
   line-height: 1.9;
+
   margin-bottom: 25px;
 }
 
 .card a {
   display: inline-block;
+
   color: var(--gold);
+
   font-size: 12px;
   font-weight: 800;
 }
 
+.card a:hover {
+  color: var(--gold-light);
+}
+
 .featured {
   border-color: rgba(233, 189, 82, .45);
+
   background:
     radial-gradient(
       ellipse at 100% 0,
@@ -364,11 +693,14 @@ h2 span {
       transparent 60%
     ),
     linear-gradient(145deg, #171510, #0d0d0d);
+
+  box-shadow: inset 0 0 35px rgba(233, 189, 82, .025);
 }
 
 .featured::after {
   content: "";
   position: absolute;
+
   top: 0;
   right: 25px;
 
@@ -378,9 +710,14 @@ h2 span {
   background: var(--gold);
 }
 
+/* =========================================
+   APPLICATION SECTION
+   ========================================= */
+
 .application {
   display: grid;
   grid-template-columns: .8fr 1.2fr;
+
   gap: 7%;
   align-items: start;
 }
@@ -391,15 +728,21 @@ h2 span {
 
 .intro > p:not(.eyebrow) {
   color: var(--muted);
+
   font-size: 14px;
   line-height: 1.9;
 }
+
+/* =========================================
+   NOTICE BOX
+   ========================================= */
 
 .notice {
   margin-top: 28px;
   padding: 20px;
 
   background: #111;
+
   border: 1px solid var(--border);
   border-left: 3px solid var(--gold);
 
@@ -415,16 +758,42 @@ h2 span {
   line-height: 1.8;
 }
 
+/* =========================================
+   FORM
+   ========================================= */
+
 .form {
-  background: linear-gradient(145deg, #141414, #0b0b0b);
-  border-color: rgba(233, 189, 82, .2);
+  padding: 32px;
+
+  background: linear-gradient(
+    145deg,
+    #141414,
+    #0b0b0b
+  );
+
+  border: 1px solid rgba(233, 189, 82, .2);
+
+  min-width: 0;
+
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease;
+}
+
+.form:focus-within {
+  border-color: rgba(233, 189, 82, .38);
+
+  box-shadow: 0 0 35px rgba(233, 189, 82, .035);
 }
 
 .form label:not(.checkbox) {
   display: block;
+
   margin-bottom: 18px;
+
   font-size: 12px;
   font-weight: 700;
+
   color: #e5e0d6;
 }
 
@@ -432,7 +801,10 @@ input:not([type="checkbox"]),
 select,
 textarea {
   display: block;
+
   width: 100%;
+  min-width: 0;
+
   margin-top: 8px;
   padding: 13px 14px;
 
@@ -442,8 +814,12 @@ textarea {
   border: 1px solid #34312a;
   border-radius: 3px;
 
-  font: 13px Inter, sans-serif;
-  transition: border-color .2s ease, box-shadow .2s ease;
+  font-size: 13px;
+
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    box-shadow .25s ease;
 }
 
 input::placeholder,
@@ -451,12 +827,22 @@ textarea::placeholder {
   color: #706c63;
 }
 
-input:focus,
+input:not([type="checkbox"]):hover,
+select:hover,
+textarea:hover {
+  border-color: #66552e;
+}
+
+input:not([type="checkbox"]):focus,
 select:focus,
 textarea:focus {
   outline: none;
+
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(233, 189, 82, .08);
+
+  box-shadow:
+    0 0 0 3px rgba(233, 189, 82, .08),
+    0 0 18px rgba(233, 189, 82, .04);
 }
 
 select {
@@ -483,6 +869,7 @@ textarea {
   display: flex;
   align-items: flex-start;
   gap: 10px;
+
   margin: 17px 0;
 
   color: var(--muted);
@@ -492,14 +879,18 @@ textarea {
 
 .checkbox input {
   flex-shrink: 0;
+
   margin-top: 4px;
+
   accent-color: var(--gold);
+  cursor: pointer;
 }
 
 .submit {
   width: 100%;
-  margin-top: 14px;
   min-height: 48px;
+
+  margin-top: 14px;
 }
 
 #form-status {
@@ -514,6 +905,10 @@ textarea {
 #form-status.error {
   color: #ff8585;
 }
+
+/* =========================================
+   FAQZY LEAGUE
+   ========================================= */
 
 .league {
   position: relative;
@@ -536,6 +931,16 @@ textarea {
     #111;
 
   border: 1px solid var(--border);
+
+  transition:
+    border-color .3s ease,
+    box-shadow .3s ease;
+}
+
+.league:hover {
+  border-color: rgba(233, 189, 82, .4);
+
+  box-shadow: 0 0 35px rgba(233, 189, 82, .04);
 }
 
 .league h2 {
@@ -547,6 +952,10 @@ textarea {
   font-size: 13px;
   line-height: 1.8;
 }
+
+/* =========================================
+   FOOTER
+   ========================================= */
 
 footer {
   padding: 28px 7%;
@@ -563,17 +972,59 @@ footer {
   font-size: 11px;
 }
 
-button:disabled {
-  opacity: .6;
-  cursor: wait;
-  transform: none;
+/* =========================================
+   SCROLL REVEAL ANIMATIONS
+   ========================================= */
+
+/*
+   Without JavaScript, content stays visible.
+   JavaScript adds js-scroll only when the
+   animation system is ready.
+*/
+
+.js-scroll .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+
+  transition:
+    opacity .7s ease,
+    transform .7s cubic-bezier(.2, .7, .2, 1);
 }
+
+.js-scroll .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.js-scroll .reveal-left {
+  transform: translateX(-25px);
+}
+
+.js-scroll .reveal-left.is-visible {
+  transform: translateX(0);
+}
+
+.js-scroll .reveal-right {
+  transform: translateX(25px);
+}
+
+.js-scroll .reveal-right.is-visible {
+  transform: translateX(0);
+}
+
+/* =========================================
+   FOCUS ACCESSIBILITY
+   ========================================= */
 
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--gold-light);
   outline-offset: 4px;
 }
+
+/* =========================================
+   TABLET
+   ========================================= */
 
 @media (max-width: 850px) {
   .navbar {
@@ -587,8 +1038,13 @@ button:focus-visible {
 
   .hero {
     grid-template-columns: 1fr;
+
     padding: 65px 5%;
     gap: 40px;
+  }
+
+  .hero-card {
+    animation: heroEntrance .9s ease-out .15s both;
   }
 
   .section {
@@ -603,6 +1059,7 @@ button:focus-visible {
   .league {
     margin: 0 5% 45px;
     padding: 28px;
+
     align-items: flex-start;
     flex-direction: column;
   }
@@ -613,19 +1070,23 @@ button:focus-visible {
   }
 }
 
+/* =========================================
+   MOBILE
+   ========================================= */
+
 @media (max-width: 560px) {
   .navbar {
     padding: 16px 5%;
   }
 
-  .brand-logo {
-    width: 42px;
-    height: 42px;
-  }
-
   .brand {
     gap: 9px;
     font-size: 13px;
+  }
+
+  .brand-logo {
+    width: 42px;
+    height: 42px;
   }
 
   nav {
@@ -639,7 +1100,7 @@ button:focus-visible {
   }
 
   h1 {
-    font-size: clamp(52px, 13vw, 68px);
+    font-size: clamp(48px, 12vw, 68px);
   }
 
   .hero-card {
@@ -676,14 +1137,38 @@ button:focus-visible {
     align-items: flex-start;
     flex-direction: column;
   }
+
+  .hero::before {
+    width: 260px;
+    height: 260px;
+    left: -130px;
+  }
+
+  .hero-card:hover,
+  .form:focus-within {
+    box-shadow: none;
+  }
 }
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
     animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+
+  .js-scroll .reveal,
+  .js-scroll .reveal-left,
+  .js-scroll .reveal-right {
+    opacity: 1;
+    transform: none;
   }
 }
+```
