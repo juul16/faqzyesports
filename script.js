@@ -1,19 +1,13 @@
-/* =========================================
-   FAQZY ESPORTS
-   Navigation + Applications + Animations
-========================================= */
-
 "use strict";
 
 /*
- * IMPORTANT:
- * Replace this placeholder with your real backend URL.
- * The backend must support POST /api/applications.
+ * Faqzy Esports application configuration.
+ * Replace this placeholder with your real backend URL later.
+ * Your backend must implement POST /api/applications.
  */
 const API_URL = "https://YOUR-BOT-HOST.example.com";
 
 /* ELEMENTS */
-
 const applicationForm = document.getElementById("applicationForm");
 const applicationStatus = document.getElementById("applicationStatus");
 const submitButton = document.getElementById("submitApplication");
@@ -23,83 +17,99 @@ const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 const currentYear = document.getElementById("currentYear");
 
-/* =========================================
-   FOOTER YEAR
-========================================= */
+const ALLOWED_TEAMS = ["RSC Team", "Competitive Team"];
 
+/* FOOTER YEAR */
 if (currentYear) {
     currentYear.textContent = new Date().getFullYear();
 }
 
-/* =========================================
-   MOBILE NAVIGATION
-========================================= */
+/* MOBILE NAVIGATION */
+function closeMobileMenu() {
+    if (!menuToggle || !navLinks) return;
+
+    navLinks.classList.remove("active");
+    menuToggle.classList.remove("active");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open navigation");
+}
 
 if (menuToggle && navLinks) {
     menuToggle.addEventListener("click", () => {
-        const isOpen = navLinks.classList.toggle("active");
+        const isOpen = !navLinks.classList.contains("active");
 
+        navLinks.classList.toggle("active", isOpen);
         menuToggle.classList.toggle("active", isOpen);
         menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation" : "Open navigation"
+        );
     });
 
-    // Close menu after clicking a navigation link.
     navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-            navLinks.classList.remove("active");
-            menuToggle.classList.remove("active");
-
-            menuToggle.setAttribute("aria-expanded", "false");
-        });
+        link.addEventListener("click", closeMobileMenu);
     });
 
-    // Close menu with Escape.
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") {
-            navLinks.classList.remove("active");
-            menuToggle.classList.remove("active");
+            closeMobileMenu();
+        }
+    });
 
-            menuToggle.setAttribute("aria-expanded", "false");
+    document.addEventListener("click", (event) => {
+        if (
+            navLinks.classList.contains("active") &&
+            !navLinks.contains(event.target) &&
+            !menuToggle.contains(event.target)
+        ) {
+            closeMobileMenu();
+        }
+    });
+
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 700) {
+            closeMobileMenu();
         }
     });
 }
 
-/* =========================================
-   TRYOUT BUTTONS
-   Only RSC Team and Competitive Team
-========================================= */
-
+/* TEAM SELECTION */
 document.querySelectorAll("[data-tryout]").forEach((button) => {
     button.addEventListener("click", () => {
         const selectedTeam = button.dataset.tryout;
 
-        if (tryoutSelect) {
-            tryoutSelect.value = selectedTeam;
+        if (!tryoutSelect || !ALLOWED_TEAMS.includes(selectedTeam)) {
+            return;
         }
+
+        tryoutSelect.value = selectedTeam;
+
+        // Notify other scripts if they need to react to this change.
+        tryoutSelect.dispatchEvent(new Event("change", { bubbles: true }));
 
         const applicationSection = document.getElementById("application");
 
         if (applicationSection) {
-            const reducedMotion = window.matchMedia(
+            const reduceMotion = window.matchMedia(
                 "(prefers-reduced-motion: reduce)"
             ).matches;
 
             applicationSection.scrollIntoView({
-                behavior: reducedMotion ? "auto" : "smooth",
+                behavior: reduceMotion ? "auto" : "smooth",
                 block: "start"
             });
+
+            window.setTimeout(() => {
+                tryoutSelect.focus({ preventScroll: true });
+            }, reduceMotion ? 0 : 450);
         }
     });
 });
 
-/* =========================================
-   APPLICATION STATUS
-========================================= */
-
+/* APPLICATION STATUS */
 function showStatus(message, type) {
-    if (!applicationStatus) {
-        return;
-    }
+    if (!applicationStatus) return;
 
     applicationStatus.textContent = message;
     applicationStatus.className = `form-status ${type}`;
@@ -107,43 +117,37 @@ function showStatus(message, type) {
 }
 
 function clearStatus() {
-    if (!applicationStatus) {
-        return;
-    }
+    if (!applicationStatus) return;
 
     applicationStatus.textContent = "";
     applicationStatus.className = "form-status";
     applicationStatus.hidden = true;
 }
 
-/* =========================================
-   APPLICATION FORM SUBMISSION
-========================================= */
-
+/* APPLICATION FORM */
 if (applicationForm) {
     applicationForm.addEventListener("submit", async (event) => {
         event.preventDefault();
-
         clearStatus();
 
-        // Check required HTML form fields.
+        // Browser validation: required fields, formats and length limits.
         if (!applicationForm.reportValidity()) {
             return;
         }
 
-        // Prevent submission if the backend URL is still a placeholder.
+        // Leave the placeholder in place until the real backend is ready.
         if (
             !API_URL ||
             API_URL.includes("YOUR-BOT-HOST") ||
             !/^https?:\/\//i.test(API_URL)
         ) {
             showStatus(
-                "The application form is ready, but the backend URL has not been configured yet.",
+                "The form is ready, but the backend URL has not been configured yet.",
                 "error"
             );
 
-            console.error(
-                "Configure API_URL in script.js with your real backend URL."
+            console.warn(
+                "Faqzy Esports: set API_URL in script.js to your real backend URL."
             );
 
             return;
@@ -152,57 +156,21 @@ if (applicationForm) {
         const formData = new FormData(applicationForm);
 
         const application = {
-            playerName: String(
-                formData.get("playerName") || ""
-            ).trim(),
-
-            discord: String(
-                formData.get("discord") || ""
-            ).trim(),
-
+            playerName: String(formData.get("playerName") || "").trim(),
+            discord: String(formData.get("discord") || "").trim(),
             age: Number(formData.get("age")),
-
-            region: String(
-                formData.get("region") || ""
-            ),
-
-            rank: String(
-                formData.get("rank") || ""
-            ),
-
-            peakRank: String(
-                formData.get("peakRank") || ""
-            ).trim(),
-
-            platform: String(
-                formData.get("platform") || ""
-            ),
-
-            tryout: String(
-                formData.get("tryout") || ""
-            ),
-
-            tracker: String(
-                formData.get("tracker") || ""
-            ).trim(),
-
-            experience: String(
-                formData.get("experience") || ""
-            ).trim(),
-
-            availability: String(
-                formData.get("availability") || ""
-            ).trim(),
-
+            region: String(formData.get("region") || ""),
+            rank: String(formData.get("rank") || ""),
+            peakRank: String(formData.get("peakRank") || "").trim(),
+            platform: String(formData.get("platform") || ""),
+            tryout: String(formData.get("tryout") || ""),
+            tracker: String(formData.get("tracker") || "").trim(),
+            experience: String(formData.get("experience") || "").trim(),
+            availability: String(formData.get("availability") || "").trim(),
             confirmInfo: formData.get("confirmInfo") === "on"
         };
 
-        // Only these two teams are allowed.
-        const allowedTeams = [
-            "RSC Team",
-            "Competitive Team"
-        ];
-
+        // Extra validation before sending anything to the backend.
         if (
             !application.playerName ||
             !application.discord ||
@@ -214,33 +182,49 @@ if (applicationForm) {
             !application.availability ||
             !application.confirmInfo
         ) {
-            showStatus(
-                "Please complete all required fields.",
-                "error"
-            );
-
-            return;
-        }
-
-        if (!allowedTeams.includes(application.tryout)) {
-            showStatus(
-                "Please select RSC Team or Competitive Team.",
-                "error"
-            );
-
+            showStatus("Please complete all required fields.", "error");
             return;
         }
 
         if (
-            !Number.isFinite(application.age) ||
+            !Number.isInteger(application.age) ||
             application.age < 13 ||
             application.age > 99
         ) {
+            showStatus("Please enter a valid age.", "error");
+            return;
+        }
+
+        if (!ALLOWED_TEAMS.includes(application.tryout)) {
             showStatus(
-                "Please enter a valid age.",
+                "Please select RSC Team or Competitive Team.",
                 "error"
             );
+            return;
+        }
 
+        if (application.playerName.length > 50 ||
+            application.discord.length > 50 ||
+            application.peakRank.length > 50 ||
+            application.experience.length > 1500 ||
+            application.availability.length > 500) {
+            showStatus("One or more fields are too long.", "error");
+            return;
+        }
+
+        if (application.experience.length < 10) {
+            showStatus(
+                "Please provide at least 10 characters about your experience.",
+                "error"
+            );
+            return;
+        }
+
+        if (application.availability.length < 3) {
+            showStatus(
+                "Please provide more information about your availability.",
+                "error"
+            );
             return;
         }
 
@@ -253,54 +237,59 @@ if (applicationForm) {
                     trackerUrl.protocol !== "https:" &&
                     trackerUrl.protocol !== "http:"
                 ) {
-                    throw new Error("Invalid URL protocol");
+                    throw new Error("Unsupported URL protocol");
                 }
             } catch {
                 showStatus(
                     "Please enter a valid tracker URL or leave it empty.",
                     "error"
                 );
-
                 return;
             }
         }
 
-        const originalButtonHTML = submitButton
-            ? submitButton.innerHTML
-            : "Submit Application";
-
-        if (submitButton) {
-            submitButton.disabled = true;
-            submitButton.textContent = "Submitting...";
+        if (!submitButton) {
+            showStatus(
+                "The submit button could not be found. Please reload the page.",
+                "error"
+            );
+            return;
         }
+
+        const originalButtonHTML = submitButton.innerHTML;
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
 
         try {
             const response = await fetch(
                 `${API_URL.replace(/\/+$/, "")}/api/applications`,
                 {
                     method: "POST",
-
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
                     },
-
                     body: JSON.stringify(application)
                 }
             );
 
+            // Support JSON responses as well as empty responses.
+            const responseText = await response.text();
             let result = {};
 
-            try {
-                result = await response.json();
-            } catch {
-                // The server did not return JSON.
+            if (responseText) {
+                try {
+                    result = JSON.parse(responseText);
+                } catch {
+                    result = {};
+                }
             }
 
             if (!response.ok) {
                 throw new Error(
                     result.message ||
                     result.error ||
-                    `Server error (${response.status})`
+                    `The server returned error ${response.status}.`
                 );
             }
 
@@ -311,31 +300,21 @@ if (applicationForm) {
             );
 
             applicationForm.reset();
-
         } catch (error) {
-            console.error(
-                "Application submission failed:",
-                error
-            );
+            console.error("Application submission failed:", error);
 
             showStatus(
-                "We couldn't submit your application. Please try again later.",
+                "We couldn't submit your application. Please check your connection and try again later.",
                 "error"
             );
-
         } finally {
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalButtonHTML;
-            }
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonHTML;
         }
     });
 }
 
-/* =========================================
-   SCROLL REVEAL ANIMATIONS
-========================================= */
-
+/* SCROLL REVEAL ANIMATIONS */
 const revealElements = document.querySelectorAll(".reveal");
 
 const prefersReducedMotion = window.matchMedia(
@@ -346,19 +325,15 @@ if (
     prefersReducedMotion ||
     !("IntersectionObserver" in window)
 ) {
-    // Show everything if animations are disabled or unsupported.
     revealElements.forEach((element) => {
         element.classList.add("visible");
     });
-
 } else {
     const revealObserver = new IntersectionObserver(
         (entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("visible");
-
-                    // Animate each element only once.
                     observer.unobserve(entry.target);
                 }
             });
@@ -374,28 +349,17 @@ if (
     });
 }
 
-/* =========================================
-   ACTIVE NAVIGATION LINK
-========================================= */
-
-const pageSections = document.querySelectorAll(
-    "main section[id]"
-);
-
+/* ACTIVE NAVIGATION LINK */
+const pageSections = document.querySelectorAll("main section[id]");
 const navigationLinks = document.querySelectorAll(
     '.nav-links a[href^="#"]'
 );
 
-if (
-    "IntersectionObserver" in window &&
-    pageSections.length > 0
-) {
+if ("IntersectionObserver" in window && pageSections.length > 0) {
     const sectionObserver = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    return;
-                }
+                if (!entry.isIntersecting) return;
 
                 const currentId = entry.target.id;
 
