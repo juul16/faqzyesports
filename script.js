@@ -1,22 +1,18 @@
+/* =========================================
+   FAQZY ESPORTS
+   Navigation + Applications + Animations
+========================================= */
+
 "use strict";
 
 /*
-|--------------------------------------------------------------------------
-| CONFIGURATION
-|--------------------------------------------------------------------------
-|
-| Replace this URL with the actual URL of your backend.
-| Your backend must support POST /api/applications.
-|
-*/
-
+ * IMPORTANT:
+ * Replace this placeholder with your real backend URL.
+ * The backend must support POST /api/applications.
+ */
 const API_URL = "https://YOUR-BOT-HOST.example.com";
 
-/*
-|--------------------------------------------------------------------------
-| ELEMENTS
-|--------------------------------------------------------------------------
-*/
+/* ELEMENTS */
 
 const applicationForm = document.getElementById("applicationForm");
 const applicationStatus = document.getElementById("applicationStatus");
@@ -27,69 +23,78 @@ const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 const currentYear = document.getElementById("currentYear");
 
-/*
-|--------------------------------------------------------------------------
-| FOOTER YEAR
-|--------------------------------------------------------------------------
-*/
+/* =========================================
+   FOOTER YEAR
+========================================= */
 
 if (currentYear) {
     currentYear.textContent = new Date().getFullYear();
 }
 
-/*
-|--------------------------------------------------------------------------
-| MOBILE NAVIGATION
-|--------------------------------------------------------------------------
-*/
+/* =========================================
+   MOBILE NAVIGATION
+========================================= */
 
 if (menuToggle && navLinks) {
     menuToggle.addEventListener("click", () => {
         const isOpen = navLinks.classList.toggle("active");
 
+        menuToggle.classList.toggle("active", isOpen);
         menuToggle.setAttribute("aria-expanded", String(isOpen));
     });
 
+    // Close menu after clicking a navigation link.
     navLinks.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => {
             navLinks.classList.remove("active");
+            menuToggle.classList.remove("active");
+
             menuToggle.setAttribute("aria-expanded", "false");
         });
     });
+
+    // Close menu with Escape.
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+            navLinks.classList.remove("active");
+            menuToggle.classList.remove("active");
+
+            menuToggle.setAttribute("aria-expanded", "false");
+        }
+    });
 }
 
-/*
-|--------------------------------------------------------------------------
-| TRYOUT BUTTONS
-|--------------------------------------------------------------------------
-|
-| Clicking a tryout button selects the corresponding option in the form
-| and takes the visitor to the application section.
-|
-*/
+/* =========================================
+   TRYOUT BUTTONS
+   Only RSC Team and Competitive Team
+========================================= */
 
 document.querySelectorAll("[data-tryout]").forEach((button) => {
     button.addEventListener("click", () => {
-        const selectedTryout = button.dataset.tryout;
+        const selectedTeam = button.dataset.tryout;
 
         if (tryoutSelect) {
-            tryoutSelect.value = selectedTryout;
+            tryoutSelect.value = selectedTeam;
         }
 
-        document.getElementById("application")?.scrollIntoView({
-            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-                ? "auto"
-                : "smooth",
-            block: "start"
-        });
+        const applicationSection = document.getElementById("application");
+
+        if (applicationSection) {
+            const reducedMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            ).matches;
+
+            applicationSection.scrollIntoView({
+                behavior: reducedMotion ? "auto" : "smooth",
+                block: "start"
+            });
+        }
     });
 });
 
-/*
-|--------------------------------------------------------------------------
-| APPLICATION STATUS
-|--------------------------------------------------------------------------
-*/
+/* =========================================
+   APPLICATION STATUS
+========================================= */
 
 function showStatus(message, type) {
     if (!applicationStatus) {
@@ -111,26 +116,22 @@ function clearStatus() {
     applicationStatus.hidden = true;
 }
 
-/*
-|--------------------------------------------------------------------------
-| APPLICATION SUBMISSION
-|--------------------------------------------------------------------------
-*/
+/* =========================================
+   APPLICATION FORM SUBMISSION
+========================================= */
 
 if (applicationForm) {
     applicationForm.addEventListener("submit", async (event) => {
         event.preventDefault();
+
         clearStatus();
 
+        // Check required HTML form fields.
         if (!applicationForm.reportValidity()) {
             return;
         }
 
-        /*
-         * Stop here if the example URL has not been replaced.
-         * This prevents a request from being sent to a fake address.
-         */
-
+        // Prevent submission if the backend URL is still a placeholder.
         if (
             !API_URL ||
             API_URL.includes("YOUR-BOT-HOST") ||
@@ -142,7 +143,7 @@ if (applicationForm) {
             );
 
             console.error(
-                "Configure API_URL in script.js with your actual backend URL."
+                "Configure API_URL in script.js with your real backend URL."
             );
 
             return;
@@ -151,24 +152,56 @@ if (applicationForm) {
         const formData = new FormData(applicationForm);
 
         const application = {
-            playerName: String(formData.get("playerName") || "").trim(),
-            discord: String(formData.get("discord") || "").trim(),
+            playerName: String(
+                formData.get("playerName") || ""
+            ).trim(),
+
+            discord: String(
+                formData.get("discord") || ""
+            ).trim(),
+
             age: Number(formData.get("age")),
-            region: String(formData.get("region") || ""),
-            rank: String(formData.get("rank") || ""),
-            peakRank: String(formData.get("peakRank") || "").trim(),
-            platform: String(formData.get("platform") || ""),
-            tryout: String(formData.get("tryout") || ""),
-            tracker: String(formData.get("tracker") || "").trim(),
-            experience: String(formData.get("experience") || "").trim(),
-            availability: String(formData.get("availability") || "").trim(),
+
+            region: String(
+                formData.get("region") || ""
+            ),
+
+            rank: String(
+                formData.get("rank") || ""
+            ),
+
+            peakRank: String(
+                formData.get("peakRank") || ""
+            ).trim(),
+
+            platform: String(
+                formData.get("platform") || ""
+            ),
+
+            tryout: String(
+                formData.get("tryout") || ""
+            ),
+
+            tracker: String(
+                formData.get("tracker") || ""
+            ).trim(),
+
+            experience: String(
+                formData.get("experience") || ""
+            ).trim(),
+
+            availability: String(
+                formData.get("availability") || ""
+            ).trim(),
+
             confirmInfo: formData.get("confirmInfo") === "on"
         };
 
-        /*
-         * Basic client-side checks.
-         * The backend must validate the data again independently.
-         */
+        // Only these two teams are allowed.
+        const allowedTeams = [
+            "RSC Team",
+            "Competitive Team"
+        ];
 
         if (
             !application.playerName ||
@@ -177,20 +210,32 @@ if (applicationForm) {
             !application.rank ||
             !application.peakRank ||
             !application.platform ||
-            !application.tryout ||
             !application.experience ||
             !application.availability ||
             !application.confirmInfo
         ) {
             showStatus(
-                "Please complete all required fields before submitting.",
+                "Please complete all required fields.",
                 "error"
             );
 
             return;
         }
 
-        if (application.age < 13 || application.age > 99) {
+        if (!allowedTeams.includes(application.tryout)) {
+            showStatus(
+                "Please select RSC Team or Competitive Team.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (
+            !Number.isFinite(application.age) ||
+            application.age < 13 ||
+            application.age > 99
+        ) {
             showStatus(
                 "Please enter a valid age.",
                 "error"
@@ -199,6 +244,7 @@ if (applicationForm) {
             return;
         }
 
+        // Validate the optional tracker URL.
         if (application.tracker) {
             try {
                 const trackerUrl = new URL(application.tracker);
@@ -207,11 +253,11 @@ if (applicationForm) {
                     trackerUrl.protocol !== "https:" &&
                     trackerUrl.protocol !== "http:"
                 ) {
-                    throw new Error("Invalid tracker URL protocol.");
+                    throw new Error("Invalid URL protocol");
                 }
             } catch {
                 showStatus(
-                    "Please enter a valid tracker URL or leave that field empty.",
+                    "Please enter a valid tracker URL or leave it empty.",
                     "error"
                 );
 
@@ -219,12 +265,8 @@ if (applicationForm) {
             }
         }
 
-        /*
-         * Disable the submit button to prevent duplicate submissions.
-         */
-
-        const originalButtonText = submitButton
-            ? submitButton.textContent
+        const originalButtonHTML = submitButton
+            ? submitButton.innerHTML
             : "Submit Application";
 
         if (submitButton) {
@@ -251,14 +293,14 @@ if (applicationForm) {
             try {
                 result = await response.json();
             } catch {
-                // The server may return an empty or non-JSON response.
+                // The server did not return JSON.
             }
 
             if (!response.ok) {
                 throw new Error(
                     result.message ||
                     result.error ||
-                    `The server returned status ${response.status}.`
+                    `Server error (${response.status})`
                 );
             }
 
@@ -271,33 +313,28 @@ if (applicationForm) {
             applicationForm.reset();
 
         } catch (error) {
-            console.error("Application submission failed:", error);
+            console.error(
+                "Application submission failed:",
+                error
+            );
 
             showStatus(
-                error.message ||
-                "Something went wrong. Please try again later.",
+                "We couldn't submit your application. Please try again later.",
                 "error"
             );
 
         } finally {
             if (submitButton) {
                 submitButton.disabled = false;
-                submitButton.textContent = originalButtonText;
+                submitButton.innerHTML = originalButtonHTML;
             }
         }
     });
 }
 
-/*
-|--------------------------------------------------------------------------
-| SCROLL REVEAL ANIMATIONS
-|--------------------------------------------------------------------------
-|
-| This adds the "visible" class when elements with the "reveal" class
-| enter the viewport. Your style.css should define the corresponding
-| animation styles.
-|
-*/
+/* =========================================
+   SCROLL REVEAL ANIMATIONS
+========================================= */
 
 const revealElements = document.querySelectorAll(".reveal");
 
@@ -305,26 +342,77 @@ const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 ).matches;
 
-if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+if (
+    prefersReducedMotion ||
+    !("IntersectionObserver" in window)
+) {
+    // Show everything if animations are disabled or unsupported.
     revealElements.forEach((element) => {
         element.classList.add("visible");
     });
+
 } else {
     const revealObserver = new IntersectionObserver(
         (entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("visible");
+
+                    // Animate each element only once.
                     observer.unobserve(entry.target);
                 }
             });
         },
         {
-            threshold: 0.12
+            threshold: 0.12,
+            rootMargin: "0px 0px -30px 0px"
         }
     );
 
     revealElements.forEach((element) => {
         revealObserver.observe(element);
+    });
+}
+
+/* =========================================
+   ACTIVE NAVIGATION LINK
+========================================= */
+
+const pageSections = document.querySelectorAll(
+    "main section[id]"
+);
+
+const navigationLinks = document.querySelectorAll(
+    '.nav-links a[href^="#"]'
+);
+
+if (
+    "IntersectionObserver" in window &&
+    pageSections.length > 0
+) {
+    const sectionObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                const currentId = entry.target.id;
+
+                navigationLinks.forEach((link) => {
+                    const isActive =
+                        link.getAttribute("href") === `#${currentId}`;
+
+                    link.classList.toggle("active", isActive);
+                });
+            });
+        },
+        {
+            rootMargin: "-25% 0px -60% 0px"
+        }
+    );
+
+    pageSections.forEach((section) => {
+        sectionObserver.observe(section);
     });
 }
