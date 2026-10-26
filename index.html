@@ -1,510 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Faqzy Esports | Rocket League Tryouts</title>
+    <title>Faqzy Esports | Rocket League Tryouts</title>
+    <meta
+        name="description"
+        content="Join Faqzy Esports. Apply for Rocket League tryouts and show us what you can do."
+    >
 
-  <meta
-    name="description"
-    content="Apply for Faqzy Esports Rocket League tryouts. Join our RSC roster or Competitive Team and take your competitive journey to the next level."
-  >
+    <link rel="stylesheet" href="style.css">
 
-  <meta name="theme-color" content="#050505">
-
-  <link rel="icon" type="image/png" href="faqzy-logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
-
-  <!-- NAVIGATION -->
-  <header class="navbar">
-
-    <a class="brand" href="#" aria-label="Faqzy Esports home">
-      <img
-        src="faqzy-logo.png"
-        alt="Faqzy Esports logo"
-        class="brand-logo"
-      >
-
-      <span class="brand-name">
-        FAQZY <span>ESPORTS</span>
-      </span>
-    </a>
-
-    <nav aria-label="Main navigation">
-      <a href="#tryouts">Tryouts</a>
-      <a href="#apply">Apply</a>
-
-      <a
-        href="https://faqzyleague.vercel.app/index.html"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Faqzy League ↗
-      </a>
-
-      <a class="nav-button" href="#apply">
-        Apply now
-      </a>
-    </nav>
-
-  </header>
-
-
-  <main>
-
-    <!-- HERO SECTION -->
-    <section class="hero">
-
-      <div class="hero-content">
-
-        <p class="eyebrow">
-          ROCKET LEAGUE • ESPORTS
-        </p>
-
-        <h1>
-          YOUR NEXT<br>
-          <span>CHAPTER</span><br>
-          STARTS HERE.
-        </h1>
-
-        <p class="description">
-          Ready to compete? Apply for an RSC roster or a Competitive
-          Team tryout and show Faqzy Esports what you can bring to
-          the team.
-        </p>
-
-        <div class="buttons">
-
-          <a class="button primary" href="#apply">
-            Apply for tryouts →
-          </a>
-
-          <a class="button" href="#tryouts">
-            Explore tryouts
-          </a>
-
-        </div>
-
-        <p class="small">
-          You must be a member of our Discord server to apply.
-        </p>
-
-      </div>
-
-
-      <!-- RECRUITMENT CARD -->
-      <div class="hero-card">
-
-        <p class="eyebrow">
-          FAQZY ESPORTS RECRUITMENT
-        </p>
-
-        <h2>
-          PLAY TOGETHER.<br>
-          GROW TOGETHER.
-        </h2>
-
-        <div class="divider"></div>
-
-        <p>
-          <span>01</span>
-          Choose your tryout
-        </p>
-
-        <p>
-          <span>02</span>
-          Tell us your story
-        </p>
-
-        <p>
-          <span>03</span>
-          Join the team journey
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <!-- TRYOUT OPTIONS -->
-    <section class="section" id="tryouts">
-
-      <p class="eyebrow">
-        FIND YOUR PATH
-      </p>
-
-      <h2>
-        Choose your <span>tryout.</span>
-      </h2>
-
-      <div class="cards">
-
-        <!-- COMPETITIVE TEAM -->
-        <article class="card">
-
-          <p class="eyebrow">
-            TEAM RECRUITMENT
-          </p>
-
-          <h3>
-            Competitive Team
-          </h3>
-
-          <p>
-            Want to compete and improve with a team? Tell us about
-            your experience, goals and availability.
-          </p>
-
-          <a
-            href="#apply"
-            data-tryout="Competitive Team"
-          >
-            Apply for Competitive Team →
-          </a>
-
-        </article>
-
-
-        <!-- RSC -->
-        <article class="card featured">
-
-          <p class="eyebrow">
-            RSC RECRUITMENT
-          </p>
-
-          <h3>
-            RSC
-          </h3>
-
-          <p>
-            Interested in joining our RSC roster? Tell us about
-            your competitive background and what you want to achieve.
-          </p>
-
-          <a
-            href="#apply"
-            data-tryout="RSC"
-          >
-            Apply for RSC →
-          </a>
-
-        </article>
-
-      </div>
-
-    </section>
-
-
-    <!-- APPLICATION SECTION -->
-    <section class="section application" id="apply">
-
-      <!-- INTRODUCTION -->
-      <div class="intro">
-
-        <p class="eyebrow">
-          TAKE THE FIRST STEP
-        </p>
-
-        <h2>
-          Tryout <span>application.</span>
-        </h2>
-
-        <p>
-          Complete the form honestly. Your application will be sent
-          to the Faqzy Esports recruitment channel in Discord.
-        </p>
-
-        <div class="notice">
-
-          <strong>
-            Before applying
-          </strong>
-
-          <p>
-            Make sure you have joined the Faqzy Esports Discord server.
-            Your membership is confirmed by you, not automatically
-            verified by this form.
-          </p>
-
-        </div>
-
-      </div>
-
-
-      <!-- APPLICATION FORM -->
-      <form id="tryout-form" class="form">
-
-        <!-- NAME -->
-        <label>
-          Name *
-
-          <input
-            type="text"
-            name="playerName"
-            maxlength="60"
-            autocomplete="nickname"
-            placeholder="Enter your name"
-            required
-          >
-        </label>
-
-
-        <!-- EPIC NAME -->
-        <label>
-          Epic Name (Tracker) *
-
-          <input
-            type="text"
-            name="epicName"
-            maxlength="80"
-            placeholder="Your Rocket League Epic name"
-            required
-          >
-        </label>
-
-
-        <!-- TRYOUT TYPE -->
-        <label>
-          Tryout Type *
-
-          <select
-            name="tryoutType"
-            id="tryoutType"
-            required
-          >
-            <option value="">
-              Choose your tryout
-            </option>
-
-            <option value="RSC">
-              RSC
-            </option>
-
-            <option value="Competitive Team">
-              Competitive Team
-            </option>
-
-          </select>
-        </label>
-
-
-        <!-- REGION AND COUNTRY -->
-        <div class="row">
-
-          <label>
-            Region *
-
-            <input
-              type="text"
-              name="region"
-              maxlength="60"
-              placeholder="e.g. EU"
-              required
+    <header class="site-header">
+        <nav class="navbar">
+            <a class="logo" href="#home" aria-label="Faqzy Esports home">
+                FAQZY<span>ESPORTS</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                type="button"
+                aria-label="Toggle navigation"
+                aria-expanded="false"
+                aria-controls="navLinks"
             >
-          </label>
+                ☰
+            </button>
 
-          <label>
-            Country *
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#tryouts">Tryouts</a>
+                <a href="#application">Apply</a>
+            </div>
+        </nav>
+    </header>
 
-            <input
-              type="text"
-              name="country"
-              maxlength="60"
-              placeholder="Your country"
-              autocomplete="country-name"
-              required
-            >
-          </label>
+    <main>
+        <!-- HERO -->
+        <section class="hero reveal" id="home">
+            <div class="hero-content">
+                <p class="eyebrow">COMPETE. IMPROVE. DOMINATE.</p>
 
-        </div>
+                <h1>
+                    WELCOME TO
+                    <span>FAQZY ESPORTS</span>
+                </h1>
 
+                <p class="hero-description">
+                    We're looking for dedicated Rocket League players who want
+                    to improve, compete, and represent Faqzy Esports.
+                </p>
 
-        <!-- EXPERIENCE -->
-        <label>
-          What is your previous experience? *
+                <div class="hero-buttons">
+                    <a class="btn btn-primary" href="#tryouts">
+                        Explore Tryouts
+                    </a>
 
-          <textarea
-            name="experience"
-            rows="4"
-            maxlength="1500"
-            placeholder="Teams, tournaments, leagues or competitive experience..."
-            required
-          ></textarea>
-        </label>
+                    <a class="btn btn-secondary" href="#application">
+                        Apply Now
+                    </a>
+                </div>
+            </div>
 
+            <div class="hero-decoration" aria-hidden="true">
+                <span>F</span>
+            </div>
+        </section>
 
-        <!-- WHY FAQZY -->
-        <label>
-          Why Faqzy Esports? *
+        <!-- ABOUT -->
+        <section class="section about-section reveal" id="about">
+            <div class="section-heading">
+                <p class="eyebrow">WHO WE ARE</p>
+                <h2>MORE THAN <span>A TEAM</span></h2>
+            </div>
 
-          <textarea
-            name="whyFaqzy"
-            rows="3"
-            maxlength="1200"
-            placeholder="Why do you want to join Faqzy Esports?"
-            required
-          ></textarea>
-        </label>
+            <div class="about-content">
+                <p>
+                    Faqzy Esports is built around teamwork, consistency,
+                    improvement, and competitive ambition. We want players
+                    who communicate well, take feedback seriously, and are
+                    ready to work toward their goals.
+                </p>
 
+                <p>
+                    Think you have what it takes? Choose a tryout below and
+                    send us your application.
+                </p>
+            </div>
+        </section>
 
-        <!-- AVAILABILITY -->
-        <label>
-          Availability *
+        <!-- TRYOUTS -->
+        <section class="section tryouts-section reveal" id="tryouts">
+            <div class="section-heading">
+                <p class="eyebrow">YOUR OPPORTUNITY</p>
+                <h2>AVAILABLE <span>TRYOUTS</span></h2>
 
-          <textarea
-            name="availability"
-            rows="3"
-            maxlength="1000"
-            placeholder="How many hours per week can you be online in Rocket League and Discord?"
-            required
-          ></textarea>
-        </label>
+                <p class="section-description">
+                    Choose the tryout that matches your ambitions.
+                </p>
+            </div>
 
+            <div class="tryout-grid">
+                <article class="tryout-card">
+                    <div class="tryout-number">01</div>
 
-        <!-- GOALS -->
-        <label>
-          What are your Rocket League goals? *
+                    <h3>Academy</h3>
 
-          <textarea
-            name="goals"
-            rows="3"
-            maxlength="1200"
-            placeholder="What do you want to achieve in Rocket League?"
-            required
-          ></textarea>
-        </label>
+                    <p>
+                        For developing players who want to improve their
+                        mechanics, rotations, and teamplay.
+                    </p>
 
+                    <button
+                        class="btn btn-primary"
+                        type="button"
+                        data-tryout="Academy"
+                    >
+                        Apply for Academy
+                    </button>
+                </article>
 
-        <!-- DISCORD CONFIRMATION -->
-        <label class="checkbox">
+                <article class="tryout-card featured">
+                    <div class="tryout-number">02</div>
 
-          <input
-            type="checkbox"
-            name="joinedDiscord"
-            required
-          >
+                    <div class="featured-label">COMPETITIVE</div>
 
-          <span>
-            I confirm that I have joined the Faqzy Esports Discord server. *
-          </span>
+                    <h3>Main Team</h3>
 
-        </label>
+                    <p>
+                        For competitive players who are ready to prove
+                        themselves and compete as a team.
+                    </p>
 
+                    <button
+                        class="btn btn-primary"
+                        type="button"
+                        data-tryout="Main Team"
+                    >
+                        Apply for Main Team
+                    </button>
+                </article>
 
-        <!-- CONSENT -->
-        <label class="checkbox">
+                <article class="tryout-card">
+                    <div class="tryout-number">03</div>
 
-          <input
-            type="checkbox"
-            name="consent"
-            required
-          >
+                    <h3>Substitute</h3>
 
-          <span>
-            I agree that Faqzy Esports staff can review my application. *
-          </span>
+                    <p>
+                        For reliable players interested in supporting
+                        the roster and earning their opportunity.
+                    </p>
 
-        </label>
+                    <button
+                        class="btn btn-primary"
+                        type="button"
+                        data-tryout="Substitute"
+                    >
+                        Apply as Substitute
+                    </button>
+                </article>
+            </div>
+        </section>
 
-
-        <!-- SUBMIT -->
-        <button
-          id="submit-button"
-          class="button primary submit"
-          type="submit"
+        <!-- APPLICATION -->
+        <section
+            class="section application-section reveal"
+            id="application"
         >
-          Submit application →
-        </button>
+            <div class="section-heading">
+                <p class="eyebrow">TAKE YOUR SHOT</p>
+                <h2>PLAYER <span>APPLICATION</span></h2>
 
+                <p class="section-description">
+                    Fill in your details below to apply for Faqzy Esports.
+                </p>
+            </div>
 
-        <!-- STATUS MESSAGES -->
-        <p
-          id="form-status"
-          role="status"
-          aria-live="polite"
-        ></p>
+            <form id="applicationForm" class="application-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="playerName">Player name *</label>
 
+                        <input
+                            type="text"
+                            id="playerName"
+                            name="playerName"
+                            placeholder="Your name"
+                            minlength="2"
+                            maxlength="50"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
 
-        <p class="small">
-          Never share your password or other sensitive account information.
-        </p>
+                    <div class="form-group">
+                        <label for="discord">Discord username *</label>
 
-      </form>
+                        <input
+                            type="text"
+                            id="discord"
+                            name="discord"
+                            placeholder="yourusername"
+                            minlength="2"
+                            maxlength="50"
+                            required
+                        >
+                    </div>
 
-    </section>
+                    <div class="form-group">
+                        <label for="age">Age *</label>
 
+                        <input
+                            type="number"
+                            id="age"
+                            name="age"
+                            placeholder="Your age"
+                            min="13"
+                            max="99"
+                            required
+                        >
+                    </div>
 
-    <!-- FAQZY LEAGUE -->
-    <section class="league">
+                    <div class="form-group">
+                        <label for="region">Region *</label>
 
-      <div>
+                        <select id="region" name="region" required>
+                            <option value="">Select your region</option>
+                            <option value="EU">Europe (EU)</option>
+                            <option value="NA">North America (NA)</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
 
-        <p class="eyebrow">
-          PART OF THE COMMUNITY
-        </p>
+                    <div class="form-group">
+                        <label for="rank">Current Rocket League rank *</label>
 
-        <h2>
-          Discover <span>Faqzy League.</span>
-        </h2>
+                        <select id="rank" name="rank" required>
+                            <option value="">Select your rank</option>
+                            <option value="Bronze">Bronze</option>
+                            <option value="Silver">Silver</option>
+                            <option value="Gold">Gold</option>
+                            <option value="Platinum">Platinum</option>
+                            <option value="Diamond">Diamond</option>
+                            <option value="Champion">Champion</option>
+                            <option value="Grand Champion">Grand Champion</option>
+                            <option value="Supersonic Legend">Supersonic Legend</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="peakRank">Peak rank *</label>
+
+                        <input
+                            type="text"
+                            id="peakRank"
+                            name="peakRank"
+                            placeholder="e.g. GC1"
+                            maxlength="50"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="platform">Platform *</label>
+
+                        <select id="platform" name="platform" required>
+                            <option value="">Select your platform</option>
+                            <option value="PC">PC</option>
+                            <option value="PlayStation">PlayStation</option>
+                            <option value="Xbox">Xbox</option>
+                            <option value="Nintendo Switch">Nintendo Switch</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tryout">Tryout *</label>
+
+                        <select id="tryout" name="tryout" required>
+                            <option value="">Select a tryout</option>
+                            <option value="Academy">Academy</option>
+                            <option value="Main Team">Main Team</option>
+                            <option value="Substitute">Substitute</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="tracker">Tracker URL (optional)</label>
+
+                        <input
+                            type="url"
+                            id="tracker"
+                            name="tracker"
+                            placeholder="https://rocketleague.tracker.network/..."
+                        >
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="experience">Competitive experience *</label>
+
+                        <textarea
+                            id="experience"
+                            name="experience"
+                            rows="4"
+                            minlength="10"
+                            maxlength="1500"
+                            placeholder="Tell us about your experience, previous teams, tournaments, and goals..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="availability">Availability *</label>
+
+                        <textarea
+                            id="availability"
+                            name="availability"
+                            rows="3"
+                            minlength="3"
+                            maxlength="500"
+                            placeholder="When are you usually available to play?"
+                            required
+                        ></textarea>
+                    </div>
+                </div>
+
+                <label class="checkbox-label" for="confirmInfo">
+                    <input
+                        type="checkbox"
+                        id="confirmInfo"
+                        name="confirmInfo"
+                        required
+                    >
+
+                    <span>
+                        I confirm that the information I provided is accurate.
+                    </span>
+                </label>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary submit-button"
+                    id="submitApplication"
+                >
+                    Submit Application
+                </button>
+
+                <div
+                    id="applicationStatus"
+                    class="form-status"
+                    role="status"
+                    aria-live="polite"
+                    hidden
+                ></div>
+            </form>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <a class="logo" href="#home">
+            FAQZY<span>ESPORTS</span>
+        </a>
 
         <p>
-          Visit our Faqzy League website for more community competitions.
+            © <span id="currentYear"></span> Faqzy Esports.
+            All rights reserved.
         </p>
 
-      </div>
-
-      <a
-        class="button primary"
-        href="https://faqzyleague.vercel.app/index.html"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Visit Faqzy League ↗
-      </a>
-
-    </section>
-
-  </main>
-
-
-  <!-- FOOTER -->
-  <footer>
-
-    <a class="brand" href="#" aria-label="Faqzy Esports home">
-
-      <img
-        src="faqzy-logo.png"
-        alt="Faqzy Esports logo"
-        class="brand-logo"
-      >
-
-      <span class="brand-name">
-        FAQZY <span>ESPORTS</span>
-      </span>
-
-    </a>
-
-    <p>
-      © 2026 Faqzy Esports. All rights reserved.
-    </p>
-
-  </footer>
-
-
-  <!-- APPLICATION SCRIPT -->
-  <script src="script.js"></script>
-
+        <a href="#home" class="back-to-top">Back to top ↑</a>
+    </footer>
 </body>
 </html>
