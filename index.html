@@ -3,29 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Join Faqzy Esports and compete in Rocket League. Apply for RSC Team or Competitive Team tryouts.">
+    <meta name="theme-color" content="#080808">
+    <meta name="description" content="Join Faqzy Esports. Apply for Rocket League tryouts with RSC Team or Competitive Team.">
     <title>Faqzy Esports | Rocket League</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-
-    <!-- NAVIGATION -->
     <header class="site-header">
-        <nav class="navbar">
+        <nav class="navbar" aria-label="Main navigation">
             <a href="#home" class="logo">FAQZY<span>ESPORTS</span></a>
 
             <button
                 class="menu-toggle"
                 id="menuToggle"
                 type="button"
-                aria-label="Toggle navigation"
+                aria-label="Open navigation"
                 aria-expanded="false"
                 aria-controls="navLinks"
             >
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
 
             <div class="nav-links" id="navLinks">
@@ -38,11 +35,9 @@
     </header>
 
     <main>
-
-        <!-- HERO -->
         <section class="hero" id="home">
-            <div class="hero-glow"></div>
-            <div class="hero-ring"></div>
+            <div class="hero-glow" aria-hidden="true"></div>
+            <div class="hero-ring" aria-hidden="true"></div>
 
             <div class="hero-content reveal">
                 <p class="eyebrow">
@@ -50,8 +45,7 @@
                     COMPETE. IMPROVE. DOMINATE.
                 </p>
 
-                <h1>
-                    WELCOME TO
+                <h1>WELCOME TO
                     <span class="gold-text">FAQZY ESPORTS</span>
                 </h1>
 
@@ -64,179 +58,105 @@
                     <a href="#tryouts" class="btn btn-primary">
                         Explore Tryouts <span>↗</span>
                     </a>
-
                     <a href="#application" class="btn btn-secondary">
                         Apply Now
                     </a>
                 </div>
 
                 <div class="hero-stats">
-                    <div>
-                        <strong>TEAM</strong>
-                        <span>FIRST MENTALITY</span>
-                    </div>
-
-                    <div>
-                        <strong>RL</strong>
-                        <span>ROCKET LEAGUE</span>
-                    </div>
-
-                    <div>
-                        <strong>FAQZY</strong>
-                        <span>ESPORTS</span>
-                    </div>
+                    <div><strong>TEAM</strong><span>FIRST MENTALITY</span></div>
+                    <div><strong>RL</strong><span>ROCKET LEAGUE</span></div>
+                    <div><strong>FAQZY</strong><span>ESPORTS</span></div>
                 </div>
             </div>
 
             <div class="hero-emblem" aria-hidden="true">
-                <div class="emblem-circle">
-                    <span>F</span>
-                </div>
+                <div class="emblem-circle"><span>F</span></div>
                 <div class="emblem-caption">FAQZY ESPORTS</div>
             </div>
 
             <a href="#about" class="scroll-indicator">
-                <span></span>
-                SCROLL TO EXPLORE
+                <span></span> SCROLL TO EXPLORE
             </a>
         </section>
 
-        <!-- ABOUT -->
         <section class="section about-section" id="about">
             <div class="section-heading reveal">
                 <p class="eyebrow">01 / WHO WE ARE</p>
-
-                <h2>
-                    BUILT TO <span class="gold-text">COMPETE.</span>
-                </h2>
-
-                <p class="section-description">
-                    More than a name. More than a team.
-                </p>
+                <h2>BUILT TO <span class="gold-text">COMPETE.</span></h2>
+                <p class="section-description">More than a name. More than a team.</p>
             </div>
 
             <div class="about-grid">
                 <article class="about-card reveal">
                     <div class="card-icon">01</div>
                     <h3>Teamwork</h3>
-                    <p>
-                        Strong communication, trust, and smart rotations are
-                        the foundation of every successful team.
-                    </p>
+                    <p>Strong communication, trust, and smart rotations are the foundation of every successful team.</p>
                 </article>
 
                 <article class="about-card reveal">
                     <div class="card-icon">02</div>
                     <h3>Improvement</h3>
-                    <p>
-                        We value players who accept feedback, learn from
-                        mistakes, and consistently work on their game.
-                    </p>
+                    <p>We value players who accept feedback, learn from mistakes, and consistently work on their game.</p>
                 </article>
 
                 <article class="about-card reveal">
                     <div class="card-icon">03</div>
                     <h3>Ambition</h3>
-                    <p>
-                        Bring the right mindset, put in the work, and show
-                        us what you can contribute to the team.
-                    </p>
+                    <p>Bring the right mindset, put in the work, and show us what you can contribute to the team.</p>
                 </article>
             </div>
         </section>
 
-        <!-- TRYOUTS: ONLY TWO TEAMS -->
         <section class="section tryouts-section" id="tryouts">
-            <div class="section-heading reveal">
-                <p class="eyebrow">02 / YOUR OPPORTUNITY</p>
+            <div class="section-inner">
+                <div class="section-heading reveal">
+                    <p class="eyebrow">02 / YOUR OPPORTUNITY</p>
+                    <h2>CHOOSE YOUR <span class="gold-text">TEAM.</span></h2>
+                    <p class="section-description">Choose the team that matches your competitive ambitions.</p>
+                </div>
 
-                <h2>
-                    CHOOSE YOUR <span class="gold-text">TEAM.</span>
-                </h2>
+                <div class="tryout-grid">
+                    <article class="tryout-card reveal">
+                        <div class="tryout-top">
+                            <span class="tryout-number">01</span>
+                            <span class="tryout-tag">RSC ROSTER</span>
+                        </div>
+                        <h3>RSC Team</h3>
+                        <p>Develop your skills, improve your teamwork, and compete together in the Rocket League scene.</p>
+                        <button type="button" class="btn btn-card" data-tryout="RSC Team">
+                            Apply for RSC Team <span>↗</span>
+                        </button>
+                    </article>
 
-                <p class="section-description">
-                    Choose the team that matches your competitive ambitions.
-                </p>
-            </div>
-
-            <div class="tryout-grid">
-
-                <!-- RSC TEAM -->
-                <article class="tryout-card reveal">
-                    <div class="tryout-top">
-                        <span class="tryout-number">01</span>
-                        <span class="tryout-tag">RSC ROSTER</span>
-                    </div>
-
-                    <h3>RSC Team</h3>
-
-                    <p>
-                        Join our RSC Team, develop your skills, improve your
-                        teamwork, and compete together in the Rocket League scene.
-                    </p>
-
-                    <button
-                        type="button"
-                        class="btn btn-card"
-                        data-tryout="RSC Team"
-                    >
-                        Apply for RSC Team <span>↗</span>
-                    </button>
-                </article>
-
-                <!-- COMPETITIVE TEAM -->
-                <article class="tryout-card featured reveal">
-                    <div class="featured-badge">COMPETITIVE</div>
-
-                    <div class="tryout-top">
-                        <span class="tryout-number">02</span>
-                        <span class="tryout-tag">COMPETITIVE ROSTER</span>
-                    </div>
-
-                    <h3>Competitive Team</h3>
-
-                    <p>
-                        Show your mechanics, game sense, communication, and
-                        competitive mindset as you aim for the next level.
-                    </p>
-
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        data-tryout="Competitive Team"
-                    >
-                        Apply for Competitive Team <span>↗</span>
-                    </button>
-                </article>
-
+                    <article class="tryout-card featured reveal">
+                        <div class="featured-badge">COMPETITIVE</div>
+                        <div class="tryout-top">
+                            <span class="tryout-number">02</span>
+                            <span class="tryout-tag">COMPETITIVE ROSTER</span>
+                        </div>
+                        <h3>Competitive Team</h3>
+                        <p>Show your mechanics, game sense, communication, and competitive mindset as you aim for the next level.</p>
+                        <button type="button" class="btn btn-primary" data-tryout="Competitive Team">
+                            Apply for Competitive Team <span>↗</span>
+                        </button>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <!-- APPLICATION -->
         <section class="section application-section" id="application">
             <div class="application-layout">
-
                 <div class="application-intro reveal">
                     <p class="eyebrow">03 / YOUR NEXT STEP</p>
-
-                    <h2>
-                        YOUR GAME.<br>
-                        YOUR <span class="gold-text">CHANCE.</span>
-                    </h2>
-
-                    <p>
-                        Ready to represent Faqzy Esports? Fill out the
-                        application and tell us more about yourself.
-                    </p>
+                    <h2>YOUR GAME.<br>YOUR <span class="gold-text">CHANCE.</span></h2>
+                    <p>Ready to represent Faqzy Esports? Fill out the application and tell us more about yourself.</p>
 
                     <div class="application-note">
                         <span class="note-icon">✦</span>
-
                         <div>
                             <strong>Give us your best.</strong>
-                            <p>
-                                Be honest, be prepared, and show your potential.
-                            </p>
+                            <p>Be honest, be prepared, and show your potential.</p>
                         </div>
                     </div>
                 </div>
@@ -248,45 +168,23 @@
                     </div>
 
                     <div class="form-grid">
-
                         <div class="form-group">
                             <label for="playerName">Player name *</label>
-                            <input
-                                id="playerName"
-                                name="playerName"
-                                type="text"
-                                placeholder="Your name"
-                                minlength="2"
-                                maxlength="50"
-                                autocomplete="nickname"
-                                required
-                            >
+                            <input id="playerName" name="playerName" type="text"
+                                placeholder="Your name" minlength="2" maxlength="50"
+                                autocomplete="nickname" required>
                         </div>
 
                         <div class="form-group">
                             <label for="discord">Discord username *</label>
-                            <input
-                                id="discord"
-                                name="discord"
-                                type="text"
-                                placeholder="yourusername"
-                                minlength="2"
-                                maxlength="50"
-                                required
-                            >
+                            <input id="discord" name="discord" type="text"
+                                placeholder="yourusername" minlength="2" maxlength="50" required>
                         </div>
 
                         <div class="form-group">
                             <label for="age">Age *</label>
-                            <input
-                                id="age"
-                                name="age"
-                                type="number"
-                                min="13"
-                                max="99"
-                                placeholder="Your age"
-                                required
-                            >
+                            <input id="age" name="age" type="number" min="13" max="99"
+                                step="1" placeholder="Your age" required>
                         </div>
 
                         <div class="form-group">
@@ -316,14 +214,8 @@
 
                         <div class="form-group">
                             <label for="peakRank">Peak rank *</label>
-                            <input
-                                id="peakRank"
-                                name="peakRank"
-                                type="text"
-                                placeholder="e.g. GC1"
-                                maxlength="50"
-                                required
-                            >
+                            <input id="peakRank" name="peakRank" type="text"
+                                placeholder="e.g. GC1" maxlength="50" required>
                         </div>
 
                         <div class="form-group">
@@ -348,85 +240,47 @@
 
                         <div class="form-group full-width">
                             <label for="tracker">Tracker URL (optional)</label>
-                            <input
-                                id="tracker"
-                                name="tracker"
-                                type="url"
-                                placeholder="https://rocketleague.tracker.network/..."
-                            >
+                            <input id="tracker" name="tracker" type="url"
+                                placeholder="https://rocketleague.tracker.network/...">
                         </div>
 
                         <div class="form-group full-width">
                             <label for="experience">Competitive experience *</label>
-                            <textarea
-                                id="experience"
-                                name="experience"
-                                rows="4"
-                                minlength="10"
-                                maxlength="1500"
+                            <textarea id="experience" name="experience" rows="4"
+                                minlength="10" maxlength="1500"
                                 placeholder="Tell us about your experience, previous teams, tournaments, and goals..."
-                                required
-                            ></textarea>
+                                required></textarea>
                         </div>
 
                         <div class="form-group full-width">
                             <label for="availability">Availability *</label>
-                            <textarea
-                                id="availability"
-                                name="availability"
-                                rows="3"
-                                minlength="3"
-                                maxlength="500"
+                            <textarea id="availability" name="availability" rows="3"
+                                minlength="3" maxlength="500"
                                 placeholder="When are you usually available to play?"
-                                required
-                            ></textarea>
+                                required></textarea>
                         </div>
-
                     </div>
 
                     <label class="checkbox-label" for="confirmInfo">
-                        <input
-                            id="confirmInfo"
-                            name="confirmInfo"
-                            type="checkbox"
-                            required
-                        >
-                        <span>
-                            I confirm that the information provided is accurate.
-                        </span>
+                        <input id="confirmInfo" name="confirmInfo" type="checkbox" required>
+                        <span>I confirm that the information provided is accurate.</span>
                     </label>
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary submit-button"
-                        id="submitApplication"
-                    >
+                    <button type="submit" class="btn btn-primary submit-button" id="submitApplication">
                         Submit Application <span>↗</span>
                     </button>
 
-                    <div
-                        id="applicationStatus"
-                        class="form-status"
-                        role="status"
-                        aria-live="polite"
-                        hidden
-                    ></div>
+                    <div id="applicationStatus" class="form-status"
+                        role="status" aria-live="polite" hidden></div>
                 </form>
-
             </div>
         </section>
     </main>
 
-    <!-- FOOTER -->
     <footer class="site-footer">
         <a href="#home" class="logo">FAQZY<span>ESPORTS</span></a>
-
-        <p>
-            © <span id="currentYear"></span> Faqzy Esports. All rights reserved.
-        </p>
-
+        <p>© <span id="currentYear"></span> Faqzy Esports. All rights reserved.</p>
         <a href="#home" class="footer-top">BACK TO TOP ↑</a>
     </footer>
-
 </body>
 </html>
