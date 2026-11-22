@@ -1,3 +1,4 @@
+
 :root {
     --background: #080808;
     --surface: #11110f;
@@ -421,12 +422,17 @@ textarea:focus-visible {
     animation: rotateRing 35s linear infinite;
 }
 
-.emblem-circle span {
-    color: var(--gold);
-    font-size: clamp(80px, 12vw, 140px);
-    font-weight: 950;
-    line-height: 1;
-    text-shadow: 0 0 50px rgba(232, 185, 64, 0.2);
+/* NEW PHOENIX LOGO */
+
+.emblem-logo {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 78%;
+    height: 78%;
+    object-fit: contain;
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 0 18px rgba(232, 185, 64, 0.2));
 }
 
 .emblem-caption {
@@ -1054,10 +1060,6 @@ textarea:focus-visible {
         width: 125px;
     }
 
-    .emblem-circle span {
-        font-size: 76px;
-    }
-
     .hero-buttons .btn {
         flex: 1;
     }
@@ -1145,3 +1147,4 @@ textarea:focus-visible {
         transform: none;
     }
 }
+
