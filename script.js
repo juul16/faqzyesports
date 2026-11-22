@@ -1,11 +1,8 @@
+
 "use strict";
 
-/*
- * Faqzy Esports application configuration.
- * Replace this placeholder with your real backend URL later.
- * Your backend must implement POST /api/applications.
- */
-const API_URL = "https://YOUR-BOT-HOST.example.com";
+/* API CONFIGURATION */
+const API_URL = "https://faqzy-applications.cloudwolkofficial.workers.dev";
 
 /* ELEMENTS */
 const applicationForm = document.getElementById("applicationForm");
@@ -52,9 +49,7 @@ if (menuToggle && navLinks) {
     });
 
     document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") {
-            closeMobileMenu();
-        }
+        if (event.key === "Escape") closeMobileMenu();
     });
 
     document.addEventListener("click", (event) => {
@@ -68,9 +63,7 @@ if (menuToggle && navLinks) {
     });
 
     window.addEventListener("resize", () => {
-        if (window.innerWidth > 700) {
-            closeMobileMenu();
-        }
+        if (window.innerWidth > 700) closeMobileMenu();
     });
 }
 
@@ -79,13 +72,9 @@ document.querySelectorAll("[data-tryout]").forEach((button) => {
     button.addEventListener("click", () => {
         const selectedTeam = button.dataset.tryout;
 
-        if (!tryoutSelect || !ALLOWED_TEAMS.includes(selectedTeam)) {
-            return;
-        }
+        if (!tryoutSelect || !ALLOWED_TEAMS.includes(selectedTeam)) return;
 
         tryoutSelect.value = selectedTeam;
-
-        // Notify other scripts if they need to react to this change.
         tryoutSelect.dispatchEvent(new Event("change", { bubbles: true }));
 
         const applicationSection = document.getElementById("application");
@@ -130,28 +119,7 @@ if (applicationForm) {
         event.preventDefault();
         clearStatus();
 
-        // Browser validation: required fields, formats and length limits.
-        if (!applicationForm.reportValidity()) {
-            return;
-        }
-
-        // Leave the placeholder in place until the real backend is ready.
-        if (
-            !API_URL ||
-            API_URL.includes("YOUR-BOT-HOST") ||
-            !/^https?:\/\//i.test(API_URL)
-        ) {
-            showStatus(
-                "The form is ready, but the backend URL has not been configured yet.",
-                "error"
-            );
-
-            console.warn(
-                "Faqzy Esports: set API_URL in script.js to your real backend URL."
-            );
-
-            return;
-        }
+        if (!applicationForm.reportValidity()) return;
 
         const formData = new FormData(applicationForm);
 
@@ -159,18 +127,21 @@ if (applicationForm) {
             playerName: String(formData.get("playerName") || "").trim(),
             discord: String(formData.get("discord") || "").trim(),
             age: Number(formData.get("age")),
-            region: String(formData.get("region") || ""),
-            rank: String(formData.get("rank") || ""),
+            region: String(formData.get("region") || "").trim(),
+            rank: String(formData.get("rank") || "").trim(),
             peakRank: String(formData.get("peakRank") || "").trim(),
-            platform: String(formData.get("platform") || ""),
-            tryout: String(formData.get("tryout") || ""),
+            platform: String(formData.get("platform") || "").trim(),
+            tryout: String(formData.get("tryout") || "").trim(),
             tracker: String(formData.get("tracker") || "").trim(),
             experience: String(formData.get("experience") || "").trim(),
             availability: String(formData.get("availability") || "").trim(),
+            joinReason: String(formData.get("joinReason") || "").trim(),
+            weeklyHours: String(formData.get("weeklyHours") || "").trim(),
+            longTermGoals: String(formData.get("longTermGoals") || "").trim(),
             confirmInfo: formData.get("confirmInfo") === "on"
         };
 
-        // Extra validation before sending anything to the backend.
+        /* REQUIRED FIELD VALIDATION */
         if (
             !application.playerName ||
             !application.discord ||
@@ -178,8 +149,12 @@ if (applicationForm) {
             !application.rank ||
             !application.peakRank ||
             !application.platform ||
+            !application.tryout ||
             !application.experience ||
             !application.availability ||
+            !application.joinReason ||
+            !application.weeklyHours ||
+            !application.longTermGoals ||
             !application.confirmInfo
         ) {
             showStatus("Please complete all required fields.", "error");
@@ -196,20 +171,31 @@ if (applicationForm) {
         }
 
         if (!ALLOWED_TEAMS.includes(application.tryout)) {
-            showStatus(
-                "Please select RSC Team or Competitive Team.",
-                "error"
-            );
+            showStatus("Please select a valid team.", "error");
             return;
         }
 
-        if (application.playerName.length > 50 ||
-            application.discord.length > 50 ||
-            application.peakRank.length > 50 ||
-            application.experience.length > 1500 ||
-            application.availability.length > 500) {
-            showStatus("One or more fields are too long.", "error");
-            return;
+        /* LENGTH VALIDATION */
+        const limits = {
+            playerName: 50,
+            discord: 50,
+            region: 30,
+            rank: 50,
+            peakRank: 50,
+            platform: 50,
+            tracker: 500,
+            experience: 1500,
+            availability: 500,
+            joinReason: 1500,
+            weeklyHours: 500,
+            longTermGoals: 1500
+        };
+
+        for (const [field, max] of Object.entries(limits)) {
+            if (application[field].length > max) {
+                showStatus("One or more fields are too long.", "error");
+                return;
+            }
         }
 
         if (application.experience.length < 10) {
@@ -228,7 +214,7 @@ if (applicationForm) {
             return;
         }
 
-        // Validate the optional tracker URL.
+        /* TRACKER URL VALIDATION */
         if (application.tracker) {
             try {
                 const trackerUrl = new URL(application.tracker);
@@ -262,7 +248,7 @@ if (applicationForm) {
 
         try {
             const response = await fetch(
-                `${API_URL.replace(/\/+$/, "")}/api/applications`,
+                `${API_URL}/api/applications`,
                 {
                     method: "POST",
                     headers: {
@@ -273,7 +259,6 @@ if (applicationForm) {
                 }
             );
 
-            // Support JSON responses as well as empty responses.
             const responseText = await response.text();
             let result = {};
 
@@ -288,7 +273,6 @@ if (applicationForm) {
             if (!response.ok) {
                 throw new Error(
                     result.message ||
-                    result.error ||
                     `The server returned error ${response.status}.`
                 );
             }
@@ -300,6 +284,7 @@ if (applicationForm) {
             );
 
             applicationForm.reset();
+
         } catch (error) {
             console.error("Application submission failed:", error);
 
@@ -307,6 +292,7 @@ if (applicationForm) {
                 "We couldn't submit your application. Please check your connection and try again later.",
                 "error"
             );
+
         } finally {
             submitButton.disabled = false;
             submitButton.innerHTML = originalButtonHTML;
