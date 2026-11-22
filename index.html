@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,9 +85,14 @@
                 </div>
             </div>
 
+            <!-- FAQZY PHOENIX LOGO -->
             <div class="hero-emblem" aria-hidden="true">
                 <div class="emblem-circle">
-                    <span>F</span>
+                    <img
+                        src="faqzy-logo.png"
+                        alt=""
+                        class="emblem-logo"
+                    >
                 </div>
                 <div class="emblem-caption">FAQZY ESPORTS</div>
             </div>
@@ -240,10 +246,8 @@
                     </div>
 
                     <div class="form-grid">
-                        <!-- Player name -->
                         <div class="form-group">
                             <label for="playerName">Player name *</label>
-
                             <input
                                 id="playerName"
                                 name="playerName"
@@ -256,10 +260,8 @@
                             >
                         </div>
 
-                        <!-- Discord -->
                         <div class="form-group">
                             <label for="discord">Discord username *</label>
-
                             <input
                                 id="discord"
                                 name="discord"
@@ -271,10 +273,8 @@
                             >
                         </div>
 
-                        <!-- Age -->
                         <div class="form-group">
                             <label for="age">Age *</label>
-
                             <input
                                 id="age"
                                 name="age"
@@ -287,10 +287,8 @@
                             >
                         </div>
 
-                        <!-- Region -->
                         <div class="form-group">
                             <label for="region">Region *</label>
-
                             <select id="region" name="region" required>
                                 <option value="">Select region</option>
                                 <option value="EU">Europe (EU)</option>
@@ -299,10 +297,8 @@
                             </select>
                         </div>
 
-                        <!-- Current rank -->
                         <div class="form-group">
                             <label for="rank">Current rank *</label>
-
                             <select id="rank" name="rank" required>
                                 <option value="">Select rank</option>
                                 <option value="Bronze">Bronze</option>
@@ -316,10 +312,8 @@
                             </select>
                         </div>
 
-                        <!-- Peak rank -->
                         <div class="form-group">
                             <label for="peakRank">Peak rank *</label>
-
                             <input
                                 id="peakRank"
                                 name="peakRank"
@@ -330,10 +324,8 @@
                             >
                         </div>
 
-                        <!-- Platform -->
                         <div class="form-group">
                             <label for="platform">Platform *</label>
-
                             <select id="platform" name="platform" required>
                                 <option value="">Select platform</option>
                                 <option value="PC">PC</option>
@@ -343,10 +335,8 @@
                             </select>
                         </div>
 
-                        <!-- Team -->
                         <div class="form-group">
                             <label for="tryout">Choose your team *</label>
-
                             <select id="tryout" name="tryout" required>
                                 <option value="">Select your team</option>
                                 <option value="RSC Team">RSC Team</option>
@@ -354,10 +344,8 @@
                             </select>
                         </div>
 
-                        <!-- Tracker -->
                         <div class="form-group full-width">
                             <label for="tracker">Tracker URL (optional)</label>
-
                             <input
                                 id="tracker"
                                 name="tracker"
@@ -366,10 +354,8 @@
                             >
                         </div>
 
-                        <!-- Competitive experience -->
                         <div class="form-group full-width">
                             <label for="experience">Competitive experience *</label>
-
                             <textarea
                                 id="experience"
                                 name="experience"
@@ -381,10 +367,8 @@
                             ></textarea>
                         </div>
 
-                        <!-- Availability -->
                         <div class="form-group full-width">
                             <label for="availability">Availability *</label>
-
                             <textarea
                                 id="availability"
                                 name="availability"
@@ -396,12 +380,10 @@
                             ></textarea>
                         </div>
 
-                        <!-- NEW QUESTION 1 -->
                         <div class="form-group full-width">
                             <label for="joinReason">
                                 Why do you want to join Faqzy Esports? *
                             </label>
-
                             <textarea
                                 id="joinReason"
                                 name="joinReason"
@@ -413,12 +395,10 @@
                             ></textarea>
                         </div>
 
-                        <!-- NEW QUESTION 2 -->
                         <div class="form-group full-width">
                             <label for="weeklyHours">
                                 How many hours per week can you play Rocket League and be online on Discord? *
                             </label>
-
                             <textarea
                                 id="weeklyHours"
                                 name="weeklyHours"
@@ -430,12 +410,10 @@
                             ></textarea>
                         </div>
 
-                        <!-- NEW QUESTION 3 -->
                         <div class="form-group full-width">
                             <label for="longTermGoals">
                                 What are your long-term goals in Rocket League? What do you want to achieve? *
                             </label>
-
                             <textarea
                                 id="longTermGoals"
                                 name="longTermGoals"
@@ -448,7 +426,6 @@
                         </div>
                     </div>
 
-                    <!-- Confirmation -->
                     <label class="checkbox-label" for="confirmInfo">
                         <input
                             id="confirmInfo"
@@ -456,13 +433,11 @@
                             type="checkbox"
                             required
                         >
-
                         <span>
                             I confirm that the information provided is accurate.
                         </span>
                     </label>
 
-                    <!-- Submit -->
                     <button
                         type="submit"
                         class="btn btn-primary submit-button"
@@ -471,7 +446,6 @@
                         Submit Application <span>↗</span>
                     </button>
 
-                    <!-- Submission status -->
                     <div
                         id="applicationStatus"
                         class="form-status"
