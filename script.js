@@ -1,4 +1,3 @@
-
 "use strict";
 
 /* API CONFIGURATION */
@@ -366,3 +365,146 @@ if ("IntersectionObserver" in window && pageSections.length > 0) {
         sectionObserver.observe(section);
     });
 }
+
+/* =========================
+   FAQZY MERCH GALLERY
+========================= */
+
+(() => {
+    const modal = document.getElementById("merchModal");
+
+    // De code doet niets op pagina's zonder de merch-popup.
+    if (!modal) return;
+
+    const products = {
+        jersey26: {
+            name: "Faqzy Jersey '26",
+            images: [
+                "merch/usa-1.png",
+                "merch/usa-2.png",
+                "merch/usa-3.png",
+                "merch/usa-4.png",
+                "merch/usa-5.png"
+            ]
+        },
+
+        white25: {
+            name: "Faqzy Jersey '25 (White)",
+            images: [
+                "merch/white-1.png",
+                "merch/white-2.png"
+            ]
+        },
+
+        black25: {
+            name: "Faqzy Jersey '25 (Black)",
+            images: [
+                "merch/black-1.png",
+                "merch/black-2.png"
+            ]
+        }
+    };
+
+    const modalImage = document.getElementById("modalImage");
+    const modalName = document.getElementById("modalProductName");
+    const counter = document.getElementById("galleryCounter");
+
+    const previousButton = modal.querySelector(".gallery-prev");
+    const nextButton = modal.querySelector(".gallery-next");
+
+    if (
+        !modalImage ||
+        !modalName ||
+        !counter ||
+        !previousButton ||
+        !nextButton
+    ) {
+        console.error("Merch gallery: required elements are missing.");
+        return;
+    }
+
+    let currentProduct = null;
+    let currentImage = 0;
+
+    function showImage() {
+        if (!currentProduct) return;
+
+        const images = currentProduct.images;
+
+        modalImage.src = images[currentImage];
+        modalImage.alt =
+            currentProduct.name + " - image " + (currentImage + 1);
+
+        counter.textContent = `${currentImage + 1} / ${images.length}`;
+
+        previousButton.disabled = images.length <= 1;
+        nextButton.disabled = images.length <= 1;
+    }
+
+    function openProduct(productId) {
+        const product = products[productId];
+
+        if (!product) return;
+
+        currentProduct = product;
+        currentImage = 0;
+
+        modalName.textContent = product.name;
+        showImage();
+
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("merch-modal-open");
+    }
+
+    function closeProduct() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("merch-modal-open");
+    }
+
+    function changeImage(direction) {
+        if (!currentProduct) return;
+
+        const total = currentProduct.images.length;
+
+        currentImage =
+            (currentImage + direction + total) % total;
+
+        showImage();
+    }
+
+    document.querySelectorAll("[data-product]").forEach((button) => {
+        button.addEventListener("click", () => {
+            openProduct(button.dataset.product);
+        });
+    });
+
+    modal.querySelectorAll("[data-close-modal]").forEach((button) => {
+        button.addEventListener("click", closeProduct);
+    });
+
+    previousButton.addEventListener("click", () => {
+        changeImage(-1);
+    });
+
+    nextButton.addEventListener("click", () => {
+        changeImage(1);
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (!modal.classList.contains("is-open")) return;
+
+        if (event.key === "Escape") {
+            closeProduct();
+        }
+
+        if (event.key === "ArrowLeft") {
+            changeImage(-1);
+        }
+
+        if (event.key === "ArrowRight") {
+            changeImage(1);
+        }
+    });
+})();
